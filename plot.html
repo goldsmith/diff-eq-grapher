@@ -1,0 +1,117 @@
+<html>
+<head>
+	<title>Directional Fields</title>
+</head>
+<body><div id="wrapper">
+	<canvas id="canvas">Your browser does not support the canvas element. Get a new one!</canvas>
+	<input type="submit" id="start" value="go" />
+	<span>y(0)<input type="text" id="y0" placeholder="y(0)" /></span>
+	<span>step size<input type="text" id="stepSize" placeholder="step size" /></span>
+	<div id="scaleslider"></div>
+	<div id="yslider"></div>
+	<div id="stepslider"></div>
+	<style>
+		#wrapper {
+			position: absolute;
+		}
+		canvas {
+			display: block;
+			margin: 0 auto;
+		}
+
+		#start {
+			margin-left: 40%
+		}
+
+		input {
+			-webkit-box-sizing: border-box;
+			-moz-box-sizing: border-box;
+			box-sizing: border-box;
+		}
+
+		#scaleslider {
+			top: 0;
+			right: 0;
+			position: absolute;
+			margin-right: -40px;
+			height: 90%;
+		}
+	</style>
+	<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.1/themes/base/jquery-ui.css" />
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+	<script src="http://code.jquery.com/ui/1.10.1/jquery-ui.js"></script>
+	<script src="graph.js"></script>
+	<script type="text/javascript">
+		//get canvas
+		var context = document.getElementById('canvas')
+		context.width = window.innerWidth - 100
+		context.height = window.innerHeight - 100
+		var ctx = context.getContext('2d')
+
+		size = context.width/scale
+		console.log(size)
+
+		var y0 = 0
+		var step = 10
+
+		$('#yslider').slider({min: -500, max: 500, step: 0.01, 
+			slide: function( event, ui ) {
+				y0 = $('#yslider').slider("option", "value")
+				$("#y0").attr("value", y0/scale)
+				ctx.clearRect(0,0,context.width,context.height)
+				DrawAxes(scale)
+				DrawDirectionField(5, slopeFunc)
+				EulerApprox(y0,slopeFunc,step)
+			}
+		})
+
+		$('#stepslider').slider({min: scale/10, max: 10*scale, step: 0.01, 
+			change: function( event, ui ) {
+				step = $('#stepslider').slider("option", "value")
+				$("#stepSize").attr("value", step/scale)
+				ctx.clearRect(0,0,context.width,context.height)
+				DrawAxes(scale)
+				DrawDirectionField(5, slopeFunc)
+				EulerApprox(y0,slopeFunc,step)
+			}
+		})
+
+		$("#scaleslider").slider({ orientation: "vertical", min: 10, max: 500, step: 10,
+			stop: function( event, ui ) {
+				scale = $('#scaleslider').slider("option", "value")
+				ctx.clearRect(0,0,context.width,context.height)
+				DrawAxes(scale)
+				DrawDirectionField(5, slopeFunc)
+				EulerApprox(y0,slopeFunc,step)
+				}
+			});
+
+		DrawAxes(scale)
+		DrawDirectionField(5, slopeFunc)
+		EulerApprox(y0, slopeFunc, step)
+
+		$('#start').on('click', function () {
+			//$(this).remove()
+			ctx.clearRect(0,0,context.width,context.height)
+			y0 = scale*parseInt($('#y0').val())
+			if (isNaN(y0)) {
+				alert('y(0) needs to be a number. Defaulting to 0.')
+				y0 = 0
+			}
+			step = (size/scale)*parseInt($('#stepSize').val())
+			if (isNaN(step)) {
+				alert('stepSize needs to be a number. Defaulting to 10.')
+				step = 1
+			}
+			$('#yslider').slider('value', y0/scale)
+			$('#stepslider').slider('value', step/scale)
+			DrawAxes(scale)
+			DrawDirectionField(5, slopeFunc)
+			EulerApprox(y0,slopeFunc,step)
+		})
+
+		$('#stepslider').slider('value', scale)
+	</script>
+</div>
+</body>
+</html>
