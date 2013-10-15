@@ -101,5 +101,5 @@ function DrawTickMarks(n) {
 }
 
 function slopeFunc(x, y) {
-	return y*Math.sin(x)//temporary should be changed
+	return x*Math.cos(y)//temporary should be changed
 }
