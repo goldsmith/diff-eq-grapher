@@ -1,9 +1,9 @@
 angular.module("grapherApp.directives", []).
   directive("draw", function() {
 
-  return function (scope, $element) {
+  return function (scope, element, attrs) {
 
-    var ctx = $element[0].getContext('2d');
+    var ctx = element[0].getContext('2d');
 
     function drawPoint(point) {
       ctx.beginPath()
@@ -22,7 +22,7 @@ angular.module("grapherApp.directives", []).
       ctx.lineWidth = 1.0
     };
 
-    scope.$watch('plotData', function() {
+    scope.$watch(attrs.draw, function() {
       drawPoint(scope.plotData.points[0]);
     });
 
