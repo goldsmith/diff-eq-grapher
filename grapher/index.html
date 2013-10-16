@@ -1,14 +1,20 @@
 <!doctype html>
-<html lang="en" ng-app="grapher">
+<html lang="en" ng-app="grapherApp">
   <head>
     <meta charset="utf-8">
     <title>Differential Equations Grapher</title>
     <link rel="stylesheet" href="css/app.css"/>
   </head>
-  <body ng-controller="GraphCtrl">
-    <graph></graph>
+  <body ng-controller="GrapherCtrl">
+    <canvas draw></canvas>
   
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
+    
+    <script src="js/services.js"></script>
+    <script src="js/directives.js"></script>
     <script src="js/app.js"></script>
+    
+    
+
   </body>
 </html>
