@@ -2,6 +2,7 @@ var app = angular.module('grapherApp', ['grapherApp.services', 'grapherApp.direc
 
 app.controller("GrapherCtrl", function($scope, diffEq) {
   $scope.y_0 = 0;
+  $scope.scale = 50
 
   $scope.slope_func = function(x, y) {
     return x*Math.cos(y);
@@ -11,7 +12,8 @@ app.controller("GrapherCtrl", function($scope, diffEq) {
     $scope.plotData =  new diffEq.directionalField(
       $scope.slope_func, 
       $scope.canvas_width, 
-      $scope.canvas_height
+      $scope.canvas_height,
+      $scope.scale
     );
   });
 });
