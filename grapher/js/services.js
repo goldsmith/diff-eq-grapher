@@ -81,5 +81,29 @@ angular.module('grapherApp.services', []).
       }
   
       return data.data
+    };
+
+    this.eulerApproximation = function(y_0, slope_func, step_size, width, height, scale) {
+      var data = plotData.new();
+
+      var left = Point(0, 0),
+          right = Point(0, 0);
+
+      for (var x = 0; x < width/2; x += step_size) {
+        left = _eulerApprox(left, -step_size);
+        right = _eulerApprox(right, step_size);
+      }
+
+      function _eulerApprox(point, step_size) {
+        data.addPoint(CenteredPoint(point, width, height));
+        new_point = Point(
+          point.x + step_size,
+          point.y + step_size * slope_func(point.x/scale, point.y/scale) 
+        );
+        data.addLine(CenteredPoint(point, width, height), CenteredPoint(new_point, width, height), 'blue');
+        return new_point
+      }
+
+      return data.data
     }
   })
