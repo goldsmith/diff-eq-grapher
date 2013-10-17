@@ -98,8 +98,8 @@ angular.module('grapherApp.services', []).
     this.eulerApproximation = function(y_0, slope_func, step_size, width, height, scale) {
       var data = plotData.new(width, height);
 
-      var left = Point(0, 0),
-          right = Point(0, 0);
+      var left = Point(0, y_0),
+          right = Point(0, y_0);
 
       for (var x = 0; x < width/2; x += step_size) {
         left = _eulerApprox(left, -step_size);
