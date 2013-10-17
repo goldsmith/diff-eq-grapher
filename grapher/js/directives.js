@@ -24,7 +24,11 @@ angular.module("grapherApp.directives", []).
     };
 
     scope.$watch(attrs.draw, function() {
-      drawPoint(scope.plotData.points[0]);
+      console.log(scope.plotData);
+      _.each(scope.plotData.points, drawPoint);
+      _.each(scope.plotData.lines, function(e) {
+        drawLine(e.from, e.to, e.color, e.width)
+      });
     });
 
     scope.canvas_width = context.width;
