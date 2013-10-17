@@ -7,6 +7,27 @@ angular.module('grapherApp.services', []).
         r: r || 1.5
       }
     };
+
+    this.objAppend = function() {
+      // merge any number of objects together
+      // by appending values of the objects
+      // that have a common key
+      var args = Array.prototype.slice.call(arguments),
+          keys = Array.prototype.slice.call(Object.keys(args[0])),
+          res = {};
+
+      for (var i = 0; i < keys.length; i++) {
+        var values = [];
+
+        for (var j = 0; j < args.length; j++) {
+          values.push.apply(values, args[j][keys[i]]);
+        }
+
+        res[keys[i]] = values;
+      }
+
+      return res;
+    }
   }).
   service("plotData", function(utils) {
     var Point = utils.Point;

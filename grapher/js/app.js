@@ -1,6 +1,6 @@
 var app = angular.module('grapherApp', ['grapherApp.services', 'grapherApp.directives']);
 
-app.controller("GrapherCtrl", function($scope, diffEq) {
+app.controller("GrapherCtrl", function($scope, utils, diffEq) {
   $scope.y_0 = 0;
   $scope.scale = 50;
   $scope.step_size = 10;
@@ -16,6 +16,7 @@ app.controller("GrapherCtrl", function($scope, diffEq) {
       $scope.canvas_height,
       $scope.scale
     );
+    
     var approx = diffEq.eulerApproximation(
       $scope.y_0, 
       $scope.slope_func, 
@@ -25,20 +26,6 @@ app.controller("GrapherCtrl", function($scope, diffEq) {
       $scope.scale
     );
 
-    console.log(approx.lines);
-    var points = [],
-        lines = [];
-
-    points.push.apply(points, field.points);
-    points.push.apply(points, approx.points);
-
-    lines.push.apply(lines, field.lines);
-    lines.push.apply(lines, approx.lines);
-
-    $scope.plotData = {
-      points: points, 
-      lines: lines
-    };
-
+    $scope.plotData = utils.objAppend(field, approx);
   });
 });
