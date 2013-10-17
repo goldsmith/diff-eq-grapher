@@ -25,6 +25,7 @@ angular.module("grapherApp.directives", []).
 
     scope.$watch(attrs.draw, function() {
       console.log(scope.plotData);
+      ctx.clearRect(0, 0, context.width, context.height)
       _.each(scope.plotData.points, drawPoint);
       _.each(scope.plotData.lines, function(e) {
         drawLine(e.from, e.to, e.color, e.width)
