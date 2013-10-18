@@ -12,6 +12,7 @@ app.controller("GrapherCtrl", function($scope, utils, diffEq) {
   $scope.$watch("y_0", function() {
     var field = diffEq.directionalField(
       $scope.slope_func, 
+      $scope.step_size,
       $scope.canvas_width, 
       $scope.canvas_height,
       $scope.scale

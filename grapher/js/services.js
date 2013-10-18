@@ -69,11 +69,11 @@ angular.module('grapherApp.services', []).
   service("diffEq", function(plotData, utils) {
     var Point = utils.Point;
 
-    this.directionalField = function(slope_func, width, height, scale) {
+    this.directionalField = function(slope_func, step_size, width, height, scale) {
       data = plotData.new(width, height);
 
-      for (var x = 0; x < width; x += 10) {
-        for (var y = 0; y < height; y += 10) {
+      for (var x = 0; x < width; x += step_size) {
+        for (var y = 0; y < height; y += step_size) {
           // center the coordinate axes on the plot
           point = Point(
             x - width/2,
