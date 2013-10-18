@@ -18,11 +18,9 @@ angular.module('grapherApp.services', []).
 
       for (var i = 0; i < keys.length; i++) {
         var values = [];
-
         for (var j = 0; j < args.length; j++) {
           values.push.apply(values, args[j][keys[i]]);
         }
-
         res[keys[i]] = values;
       }
 
