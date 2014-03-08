@@ -1,0 +1,28 @@
+<!doctype html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Differential Equations Grapher</title>
+  <link rel="stylesheet" href="styles/main.css">
+</head>
+
+<body ng-app="grapherApp" ng-controller="GrapherCtrl">
+  <canvas draw="plotData" width="1000" height="800"></canvas>
+
+  <!--[if lt IE 9]>
+  <script src="bower_components/es5-shim/es5-shim.js"></script>
+  <script src="bower_components/json3/lib/json3.min.js"></script>
+  <![endif]-->
+
+  <script src="bower_components/angular/angular.js"></script>
+  <script src="bower_components/underscore/underscore.js"></script>
+
+  <script src="scripts/services.js"></script>
+  <script src="scripts/directives.js"></script>
+  <script src="scripts/app.js"></script>
+</body>
+
+</html>
