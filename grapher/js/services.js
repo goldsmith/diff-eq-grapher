@@ -25,7 +25,7 @@ angular.module('grapherApp.services', []).
       }
 
       return res;
-    }
+    };
   }).
   service("plotData", function(utils) {
     var Point = utils.Point;
@@ -40,7 +40,7 @@ angular.module('grapherApp.services', []).
           addPoint: function(point) {
             plotData.points.push(CenteredPoint(point));
           },
-  
+
           addLine: function(point1, point2, color, width) {
             plotData.lines.push({
               from: CenteredPoint(point1),
@@ -49,7 +49,7 @@ angular.module('grapherApp.services', []).
               width: width || 1.0
             });
           },
-  
+
           data: plotData
         }
 
@@ -63,9 +63,8 @@ angular.module('grapherApp.services', []).
             point.r
           )
         }
-      };
-    }
-  ).
+    };
+  }).
   service("diffEq", function(plotData, utils) {
     var Point = utils.Point;
 
@@ -89,7 +88,7 @@ angular.module('grapherApp.services', []).
           data.addLine(up, down, 'black');
         }
       }
-  
+
       return data.data
     };
 
@@ -108,12 +107,44 @@ angular.module('grapherApp.services', []).
         data.addPoint(point);
         new_point = Point(
           point.x + step_size,
-          point.y + step_size * slope_func(point.x/scale, point.y/scale) 
+          point.y + step_size * slope_func(point.x/scale, point.y/scale)
         );
         data.addLine(point, new_point, 'blue');
         return new_point
       }
 
       return data.data
-    }
+    };
+  }).
+  service("canvas", function() {
+    this.Canvas = function(canvas) {
+      var ctx = canvas.getContext('2d');
+
+      return {
+        clear: function() {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+        },
+        drawPoint: function(point) {
+          ctx.beginPath()
+          ctx.arc(point.x, canvas.height - point.y, point.r, 0, Math.PI*2, true)
+          ctx.closePath()
+          ctx.fill()
+        },
+
+        drawLine: function(from, to, color, width) {
+          ctx.strokeStyle = color;
+          ctx.beginPath();
+          ctx.moveTo(from.x, canvas.height - from.y);
+          ctx.lineTo(to.x, canvas.height - to.y);
+          ctx.lineWidth = width || 1.0;
+          ctx.stroke()
+          ctx.lineWidth = 1.0
+        },
+
+        dimensions: function() {
+          return {width: canvas.width, height: canvas.height}
+        }
+      };
+    };
+    this.roomba = 5;
   })

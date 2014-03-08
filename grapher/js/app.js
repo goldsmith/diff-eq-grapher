@@ -1,7 +1,7 @@
 var app = angular.module('grapherApp', ['grapherApp.services', 'grapherApp.directives']);
 
 app.controller("GrapherCtrl", function($scope, utils, diffEq) {
-  $scope.y_0 = 0;
+  $scope.y_0 = 250;
   $scope.scale = 50;
   $scope.step_size = 10;
 
@@ -11,19 +11,19 @@ app.controller("GrapherCtrl", function($scope, utils, diffEq) {
 
   $scope.$watch("y_0", function() {
     var field = diffEq.directionalField(
-      $scope.slope_func, 
+      $scope.slope_func,
       $scope.step_size,
-      $scope.canvas_width, 
+      $scope.canvas_width,
       $scope.canvas_height,
       $scope.scale
     );
-    
+
     var approx = diffEq.eulerApproximation(
-      $scope.y_0, 
-      $scope.slope_func, 
-      $scope.step_size, 
-      $scope.canvas_width, 
-      $scope.canvas_height, 
+      $scope.y_0,
+      $scope.slope_func,
+      $scope.step_size,
+      $scope.canvas_width,
+      $scope.canvas_height,
       $scope.scale
     );
 
