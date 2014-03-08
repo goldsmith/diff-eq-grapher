@@ -1,6 +1,7 @@
 var app = angular.module('grapherApp', [
   'grapherApp.services',
   'grapherApp.directives',
+  'ui.slider'
 ]);
 
 app.controller("GrapherCtrl", function($scope, utils, diffEq) {
